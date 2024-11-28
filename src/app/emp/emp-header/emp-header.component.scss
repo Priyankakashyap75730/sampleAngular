@@ -1,0 +1,22 @@
+.header {
+    color: #ffff;
+    text-align: left;
+    padding: 16px 0;
+    font-size: 18px;
+    font: Roboto;
+    font-family: system-ui;
+    height:60px;
+    h1{
+        font-weight: 500;
+        margin: 10px 10px 30px 20px;
+    }
+  }
+  @media (max-width: 768px) {
+    .header{
+      max-height: 21px;
+      font-family: system-ui;
+      h1{
+        margin: 10px 10px 30px 20px;
+    }
+  }
+}

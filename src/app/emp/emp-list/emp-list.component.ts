@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-emp-list',
+  selector: 'emp-list',
   templateUrl: './emp-list.component.html',
   styleUrls: ['./emp-list.component.scss']
 })
