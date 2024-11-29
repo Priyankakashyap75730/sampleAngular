@@ -3,8 +3,10 @@ import { openDB, IDBPDatabase } from 'idb';
 export interface Item {
   id?: number;
   name: string;
+  role:string;
   fromDate: string;
   toDate:string;
+  status:string;
 }
 
 @Injectable({

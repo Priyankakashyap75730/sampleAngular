@@ -1,7 +1,49 @@
 <div class="container">
 <emp-header [heading]="'Employee List'"></emp-header>
 <main class="main">
-      <div class="no-records">
+  <div class="employee-list-container">
+    <div class="employee-section">
+      <h2>Current Employees</h2>
+      <div class="employee-card">
+        <div *ngFor="let employee of employees?.current">
+        <div class="card-data">
+          <div>
+            <p class="employee-name"><strong>{{ employee.name }}</strong></p>
+          <p class="employee-position">{{ employee.role }}</p>
+          <p class="employee-date">From {{ employee.fromDate }}</p>
+          </div>
+          <div class="del">
+            <button>
+              <img src="../../../assets/images/del_emp.svg">
+            </button>
+          </div>
+        </div><br>
+      </div>
+      </div>
+    </div>
+
+    <div class="employee-section">
+      <h2>Previous Employees</h2>
+      <div class="employee-card">
+        <div *ngFor="let employee of employees?.previous">
+        <div class="card-data">
+          <div>
+            <p class="employee-name"><strong>{{ employee.name }}</strong></p>
+          <p class="employee-position">{{ employee.role }}</p>
+          <p class="employee-date">{{ employee.fromDate }} - {{ employee.toDate }}</p>
+          </div>
+          <div class="del">
+            <button>
+              <img src="../../../assets/images/del_emp.svg">
+            </button>
+          </div>
+        </div><br>
+      </div>
+      </div>
+    </div>
+  </div>
+
+      <div class="no-records" *ngIf="employees?.previous?.length==0 && employees?.current?.length==0">
         <img src="../../../assets/images/no_emp.svg" alt="No records" class="no-records-image">
       </div>
     </main>
