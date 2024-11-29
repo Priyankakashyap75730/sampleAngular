@@ -48,6 +48,8 @@ export class EmpAddComponent {
   this._activeRoute.queryParams.subscribe((params) => {
     this.params_data = params;
   });
+  console.log('hello deploy');
+
   if(this.params_data?.id){
     this.heading="Edit Employee Details";
     this.loadData(this.params_data?.id);
