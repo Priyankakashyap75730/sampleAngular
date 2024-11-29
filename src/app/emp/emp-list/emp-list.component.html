@@ -1,8 +1,8 @@
 <div class="container">
 <emp-header [heading]="'Employee List'"></emp-header>
 <main class="main">
-  <div class="employee-list-container">
-    <div class="employee-section" *ngIf="employees?.previous?.length>0 || employees?.current?.length>0">
+  <div class="employee-list-container" *ngIf="employees?.previous?.length>0 || employees?.current?.length>0">
+    <div class="employee-section">
       <h2>Current Employees</h2>
       <div class="employee-card">
         <div *ngFor="let employee of employees?.current">
