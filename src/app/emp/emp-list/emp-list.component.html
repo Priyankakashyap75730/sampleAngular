@@ -12,8 +12,11 @@
           <p class="employee-position">{{ employee.role }}</p>
           <p class="employee-date">From {{ employee.fromDate }}</p>
           </div>
-          <div class="del">
-            <button (click)="delete(employee)">
+         <div class="del">
+            <button class="btn-edit" [routerLink]="['/add-emp']"[queryParams]="{id:employee?.id}">
+              <mat-icon>edit</mat-icon>
+            </button>&nbsp;
+            <button class="btn-del" (click)="delete(employee)">
               <img src="../../../assets/images/del_emp.svg">
             </button>
           </div>
@@ -33,7 +36,10 @@
           <p class="employee-date">{{ employee.fromDate }} - {{ employee.toDate }}</p>
           </div>
           <div class="del">
-            <button (click)="delete(employee)">
+            <button class="btn-edit" [routerLink]="['/add-emp']" [queryParams]="{id:employee?.id}">
+              <mat-icon>edit</mat-icon>
+            </button>&nbsp;
+            <button class="btn-del" (click)="delete(employee)">
               <img src="../../../assets/images/del_emp.svg">
             </button>
           </div>

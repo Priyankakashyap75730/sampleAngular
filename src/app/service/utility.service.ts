@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { openDB, IDBPDatabase } from 'idb';
+import * as moment from 'moment';
 export interface Item {
   id?: number;
   name: string;
@@ -34,5 +35,9 @@ export class UtilityService {
   async deleteItem(id: number): Promise<void> {
     const db = await this.dbPromise;
     await db.delete('items', id);
+  }
+  formatedate(date:any){
+    const formatedDate=moment(new Date(date)).utc();
+    return formatedDate.format();
   }
 }

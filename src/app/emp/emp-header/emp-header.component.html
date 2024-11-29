@@ -1,5 +1,7 @@
 <div>
-    <header class="header bg">
+   <header class="header bg">
         <h1>{{heading}}</h1>
+        <button class="btn" *ngIf="Add" [routerLink]="['']" routerLinkActive="router-link-active">
+          <mat-icon>list</mat-icon></button>
       </header>
 </div>

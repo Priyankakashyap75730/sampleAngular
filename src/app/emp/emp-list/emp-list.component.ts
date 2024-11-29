@@ -15,7 +15,6 @@ export class EmpListComponent {
     this.loadItems();
   }
   async loadItems() {
-    // this._utilityservice.addItem({name:'Saumya',role:'Fresher',status:'previous',fromDate:'22-sep-2021',toDate:'20-sep-2021'})
     const data= await this._utilityservice.getAllItems();
     const cur:any=[],pre:any=[];
     this.employees=data.filter((item=>{
@@ -32,5 +31,4 @@ delete(emp:any){
   // this._utilityservice.deleteItem(emp?.id);
   console.log(emp);
 }
-
 }

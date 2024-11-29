@@ -1,9 +1,17 @@
-<div>
-    <footer class="footer">
+<div [class.container]="Add">
+    <footer class="footer" *ngIf="!Add">
         <div class="add-records">
            <button [routerLink]="['/add-emp']" routerLinkActive="router-link-active" >
              <img src="../../../assets/images/add_emp.svg" alt="Add" class="add-record-image">
            </button>
         </div>
+     </footer>
+     <footer class="footer" *ngIf="Add">
+      <button class="btn btn-default" [routerLink]="['']">
+         <img src="../../../assets/images/cancelbtn.svg">
+      </button>
+      <button class="btn btn-primary" (click)="saveEmp()">
+         <img src="../../../assets/images/savebtn.svg">
+      </button>
      </footer>
 </div>

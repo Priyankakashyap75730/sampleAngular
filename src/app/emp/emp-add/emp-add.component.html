@@ -1,3 +1,39 @@
 <div class="container">
-  <emp-header [heading]="heading"></emp-header>
+  <emp-header [heading]="heading" [Add]="true"></emp-header>
+  <div class="employee-details-container">
+    <form [formGroup]="employeeForm" class="form-container">
+     <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Enter name" formControlName="name" />
+        <mat-icon matPrefix>person</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Role</mat-label>
+        <mat-select formControlName="role">
+          <mat-option value="flutter-dev">Flutter Developer</mat-option>
+          <mat-option value="fullstack-dev">Fullstack Developer</mat-option>
+          <mat-option value="senior-dev">Senior Developer</mat-option>
+        </mat-select>
+        <mat-icon matPrefix>work</mat-icon>
+      </mat-form-field>
+
+    <div class="date-range">
+        <mat-form-field appearance="outline" class="date-field">
+          <input matInput [matDatepicker]="startPicker" placeholder="Today" formControlName="fromDate" />
+          <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+          <mat-datepicker #startPicker></mat-datepicker>
+        </mat-form-field>
+
+        <span class="date-to">→</span>
+
+        <mat-form-field appearance="outline" class="date-field">
+          <input matInput [matDatepicker]="endPicker" placeholder="No Date" formControlName="toDate" />
+          <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+          <mat-datepicker #endPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+ <emp-footer [Add]="true" (saveemployee)="saveEmp($event)"></emp-footer>
 </div>

@@ -7,4 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class EmpHeaderComponent {
   @Input() heading:any;
+  @Input() Add:boolean=false;
 }

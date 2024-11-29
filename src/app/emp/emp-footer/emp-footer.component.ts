@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'emp-footer',
@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./emp-footer.component.scss']
 })
 export class EmpFooterComponent {
+ @Input() Add:boolean=false;
+ @Output() saveemployee=new EventEmitter();
 
+ saveEmp(){
+  this.saveemployee.emit({confirm:true})
+ }
 }

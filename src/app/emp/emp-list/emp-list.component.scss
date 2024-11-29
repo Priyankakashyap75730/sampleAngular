@@ -17,7 +17,7 @@ body {
   font-family: system-ui;
   background-color: #fff;
   border: 1px solid var(--border-color);
-  border-radius: var(--container-border-radius);
+  // border-radius: var(--container-border-radius);
   overflow: hidden;
   min-height: calc(100vh - 17px);
 
@@ -75,16 +75,24 @@ body {
   justify-content: space-between;
   border-bottom: 1px solid #e4e1e1;
   padding-bottom: 10px;
-  button{
+  .btn-del{
     background-color: #F34642;
     border: none;
     padding: 5px;
     cursor: pointer;
     border-radius: 4px;
   }
+  .btn-edit{
+    background-color:transparent;
+    border:none;
+    .mat-icon{
+      color:#50b550;
+      cursor: pointer;
+    }
+  }
 }
 h2 {
-  color: #1DA1F2;
+  color: var(--primary-color);
   margin-bottom: 15px;
   font-size: 16px;
   text-align: left;
@@ -157,7 +165,7 @@ h2 {
     justify-content: space-between;
     border-bottom: 1px solid #e4e1e1;
     padding-bottom: 10px;
-    button{
+    .btn-del{
       background-color: #F34642;
       border: none;
       padding: 5px;
@@ -256,12 +264,20 @@ h2 {
     justify-content: space-between;
     border-bottom: 1px solid #e4e1e1;
     padding-bottom: 10px;
-    button{
+    .btn-del{
       background-color: #F34642;
       border: none;
       padding: 5px;
       cursor: pointer;
       border-radius: 4px;
+    }
+    .btn-edit{
+      background-color:transparent;
+      border:none;
+      .mat-icon{
+        color:#50b550;
+        cursor: pointer;
+      }
     }
   }
 }
