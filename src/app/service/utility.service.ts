@@ -31,4 +31,8 @@ export class UtilityService {
     const db = await this.dbPromise;
     return db.add('items', item);
   }
+  async deleteItem(id: number): Promise<void> {
+    const db = await this.dbPromise;
+    await db.delete('items', id);
+  }
 }

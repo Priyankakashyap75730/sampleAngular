@@ -1,6 +1,6 @@
 <div class="container">
 <emp-header [heading]="'Employee List'"></emp-header>
-<main class="main">
+<main class="main" [class.main-no-record]="employees?.previous?.length==0 && employees?.current?.length==0">
   <div class="employee-list-container" *ngIf="employees?.previous?.length>0 || employees?.current?.length>0">
     <div class="employee-section">
       <h2>Current Employees</h2>
@@ -13,7 +13,7 @@
           <p class="employee-date">From {{ employee.fromDate }}</p>
           </div>
           <div class="del">
-            <button>
+            <button (click)="delete(employee)">
               <img src="../../../assets/images/del_emp.svg">
             </button>
           </div>
@@ -33,7 +33,7 @@
           <p class="employee-date">{{ employee.fromDate }} - {{ employee.toDate }}</p>
           </div>
           <div class="del">
-            <button>
+            <button (click)="delete(employee)">
               <img src="../../../assets/images/del_emp.svg">
             </button>
           </div>
