@@ -156,7 +156,7 @@ h2 {
   }
 
   .employee-section {
-    width: 90%;
+    width:100%;
     padding: 20px;
   }
   .card-data{
@@ -280,4 +280,20 @@ h2 {
       }
     }
   }
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+.main {
+  flex: 1;
+  overflow-y: auto;
+}
+emp-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #fff;
 }
