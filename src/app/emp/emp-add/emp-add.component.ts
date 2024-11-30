@@ -79,8 +79,8 @@ export class EmpAddComponent {
     })
     if (fetchdata) {
       this.employeeForm.patchValue(fetchdata);
-      this.employeeForm.get('fromDate')?.setValue(new Date(fetchdata?.fromDate));
-      this.employeeForm.get('toDate')?.setValue(new Date(fetchdata?.toDate))
+      this.employeeForm.value.fromDate ? this.employeeForm.get('fromDate')?.setValue(new Date(fetchdata?.fromDate)):'';
+      this.employeeForm.value.toDate ? this.employeeForm.get('toDate')?.setValue(new Date(fetchdata?.toDate)) :this.employeeForm.get('toDate')?.setValue(null)
     }
   }
   selectDate(option: string,date?:any) {

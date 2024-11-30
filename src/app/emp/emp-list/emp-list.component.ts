@@ -51,8 +51,8 @@ delete(emp:any){
   });
 }
 convertdate(date:any){
-  const myDate: Date = new Date(date);
-  const formattedDate = this.datePipe.transform(myDate, 'd MMM yyyy');
+  const myDate = date ? new Date(date):null;
+  const formattedDate =this.datePipe.transform(myDate, 'd MMM yyyy');
   return formattedDate;
 }
 }
