@@ -7,12 +7,26 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./emp-list.component.scss']
 })
 export class EmpListComponent {
-  employees:any;
+  employees:any = {};
   constructor(private _utilityservice:UtilityService,private snackBar: MatSnackBar){
 
   }
   ngOnInit():void{
     this.loadItems();
+    this._utilityservice.getItems$().subscribe(data => {
+      const cur: any[] = [];
+      const pre: any[] = [];
+      data.forEach(item => {
+        if (item.status === 'current') {
+          cur.push(item);
+        } else {
+          pre.push(item);
+        }
+      });
+
+      this.employees['current']=cur;
+      this.employees['previous']=pre;
+    });
   }
   async loadItems() {
     const data= await this._utilityservice.getAllItems();
@@ -28,7 +42,10 @@ export class EmpListComponent {
     this.employees['previous']=pre;
 }
 delete(emp:any){
-  // this._utilityservice.deleteItem(emp?.id);
+  this._utilityservice.deleteItem(emp?.id);
+  this.snackBar.open('Employee data has been deleted', 'Close', {
+    duration: 2000,
+  });
   console.log(emp);
 }
 }
