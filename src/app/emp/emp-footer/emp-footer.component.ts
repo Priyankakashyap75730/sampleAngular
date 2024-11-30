@@ -7,6 +7,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class EmpFooterComponent {
  @Input() Add:boolean=false;
+ @Input() formtouch:any;
  @Output() saveemployee=new EventEmitter();
 
  saveEmp(){

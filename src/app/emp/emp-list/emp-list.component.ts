@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { UtilityService } from 'src/app/service/utility.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'emp-list',
   templateUrl: './emp-list.component.html',
@@ -8,7 +9,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class EmpListComponent {
   employees:any = {};
-  constructor(private _utilityservice:UtilityService,private snackBar: MatSnackBar){
+  constructor(private _utilityservice:UtilityService,
+    private snackBar: MatSnackBar,
+    private datePipe:DatePipe){
 
   }
   ngOnInit():void{
@@ -46,6 +49,12 @@ delete(emp:any){
   this.snackBar.open('Employee data has been deleted', 'Close', {
     duration: 2000,
   });
-  console.log(emp);
+}
+convertdate(date:any){
+  const myDate: Date = new Date(date);
+  const formattedDate = this.datePipe.transform(myDate, 'd MMM yyyy');
+  console.log(formattedDate);
+
+  return formattedDate;
 }
 }

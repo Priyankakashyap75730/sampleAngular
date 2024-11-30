@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { openDB, IDBPDatabase } from 'idb';
-import * as moment from 'moment';
+import * as moment from 'moment-timezone';
 import { BehaviorSubject } from 'rxjs';
 export interface Item {
   id?: number;
@@ -64,12 +64,20 @@ export class UtilityService {
     return formatedDate.format();
   }
   getStatus(fromDate: string): string {
-    const fromDateMoment = moment(fromDate, 'MM/DD/YYYY');
-    const today = moment().startOf('day');
+    const timezone = 'UTC';
+    const fromDateMoment = moment.tz(fromDate, 'MM/DD/YYYY', timezone);
+    const today = moment().tz(timezone).startOf('day');
     if (fromDateMoment.isBefore(today)) {
       return 'previous';
     } else {
       return 'current';
     }
+  }
+  getNextDay(date: Date, dayOfWeek: number): Date {
+    const resultDate = new Date(date);
+    resultDate.setDate(
+      date.getDate() + ((7 + dayOfWeek - date.getDay()) % 7 || 7)
+    );
+    return resultDate;
   }
 }

@@ -10,7 +10,7 @@
       <button class="btn btn-default" [routerLink]="['']">
          <img src="../../../assets/images/cancelbtn.svg">
       </button>
-      <button class="btn btn-primary" (click)="saveEmp()">
+      <button class="btn btn-primary" [class.disabled]="formtouch" (click)="saveEmp()" [disabled]="formtouch">
          <img src="../../../assets/images/savebtn.svg">
       </button>
      </footer>

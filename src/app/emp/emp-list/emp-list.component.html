@@ -2,7 +2,7 @@
 <emp-header [heading]="'Employee List'"></emp-header>
 <main class="main" [class.main-no-record]="employees?.previous?.length==0 && employees?.current?.length==0">
   <div class="employee-list-container" *ngIf="employees?.previous?.length>0 || employees?.current?.length>0">
-    <div class="employee-section">
+    <div class="employee-section" *ngIf="employees?.current?.length>0">
       <h2>Current Employees</h2>
       <div class="employee-card">
         <div *ngFor="let employee of employees?.current">
@@ -10,7 +10,7 @@
           <div>
             <p class="employee-name"><strong>{{ employee.name }}</strong></p>
           <p class="employee-position">{{ employee.role }}</p>
-          <p class="employee-date">From {{ employee.fromDate }}</p>
+          <p class="employee-date">From ,{{convertdate(employee?.toDate)}}</p>
           </div>
          <div class="del">
             <button class="btn-edit" [routerLink]="['/add-emp']"[queryParams]="{id:employee?.id}">
@@ -25,7 +25,7 @@
       </div>
     </div>
 
-    <div class="employee-section">
+    <div class="employee-section" *ngIf="employees?.previous?.length>0">
       <h2>Previous Employees</h2>
       <div class="employee-card">
         <div *ngFor="let employee of employees?.previous">
@@ -33,7 +33,7 @@
           <div>
             <p class="employee-name"><strong>{{ employee.name }}</strong></p>
           <p class="employee-position">{{ employee.role }}</p>
-          <p class="employee-date">{{ employee.fromDate }} - {{ employee.toDate }}</p>
+          <p class="employee-date">{{convertdate(employee.fromDate)}} - {{convertdate(employee.toDate)}}</p>
           </div>
           <div class="del">
             <button class="btn-edit" [routerLink]="['/add-emp']" [queryParams]="{id:employee?.id}">

@@ -1,21 +1,21 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DatePipe } from '@angular/common';
 import { UtilityService } from 'src/app/service/utility.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
 export const MY_FORMATS = {
   parse: {
-    dateInput: 'MMM d, yyyy',
+    dateInput: 'DD MMM YYYY',
   },
   display: {
-    dateInput: 'd MMM yyyy', // Display format
-    monthYearLabel: 'MMM yyyy',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM yyyy',
+    dateInput: 'DD MMM YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'DD MMMM YYYY',
+    monthYearA11yLabel: 'MMMM YYYY',
   },
 };
 
@@ -26,14 +26,11 @@ export const MY_FORMATS = {
   providers: [
     DatePipe,
     {
-      provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS,
-      useValue: { useUtc: true },
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
     },
-    // { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
-    {
-      provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS,
-      useValue: { useUtc: true },
-    },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
   ],
 })
 export class EmpAddComponent {
@@ -49,8 +46,8 @@ export class EmpAddComponent {
     private router:Router
   ) {
     this.employeeForm = this.fb.group({
-      name: [''],
-      role: [''],
+      name: ['',Validators.required],
+      role: ['',Validators.required],
       fromDate: [''],
       toDate: [''],
     });
@@ -61,23 +58,18 @@ export class EmpAddComponent {
   {value: "QA Tester" },
   {value: "Product Owner" }
 ]
+
   ngOnInit() {
     this.employeeForm.get('fromDate')?.setValue(new Date());
     this._activeRoute.queryParams.subscribe((params) => {
       this.params_data = params;
     });
-
     if (this.params_data?.id) {
       this.heading = 'Edit Employee Details';
       this.loadData(this.params_data?.id);
     } else {
       this.heading = 'Add Employee Details';
     }
-      this.employeeForm.valueChanges.subscribe((changes) => {
-      const formattedFromDate = this.datePipe.transform(changes.fromDate, 'MM/dd/yyyy', 'UTC');
-      const formattedToDate = this.datePipe.transform(changes.toDate, 'MM/dd/yyyy', 'UTC');
-      // console.log({ fromDate: formattedFromDate, toDate: formattedToDate,role:changes?.role,name:changes?.name });
-    });
   }
 
   async loadData(id: any) {
@@ -91,7 +83,34 @@ export class EmpAddComponent {
       this.employeeForm.get('toDate')?.setValue(new Date(fetchdata?.toDate))
     }
   }
+  selectDate(option: string,date?:any) {
+    const today = new Date();
+    let selectedDate: Date | null = null;
+    switch (option) {
+      case 'today':
+        selectedDate = today;
+        break;
+      case 'nextMonday':
+        selectedDate = this._utility.getNextDay(today, 1); // Monday
+        break;
+      case 'nextTuesday':
+        selectedDate = this._utility.getNextDay(today, 2); // Tuesday
+        break;
+      case 'after1Week':
+        selectedDate = new Date(today.setDate(today.getDate() + 7));
+        break;
+      case 'nodate':
+        this.employeeForm.patchValue({ toDate:null });
+        break;
+    }
 
+    if (selectedDate && !date) {
+      this.employeeForm.patchValue({ fromDate: selectedDate });
+    }
+    if(selectedDate && date){
+      this.employeeForm.patchValue({ toDate: selectedDate });
+    }
+  }
   saveEmp(event: any) {
     if (event.confirm) {
       const formattedFromDate = this.datePipe.transform(this.employeeForm.value.fromDate, 'MM/dd/yyyy', 'UTC');
@@ -105,7 +124,7 @@ export class EmpAddComponent {
           name:this.employeeForm.value?.name,
           status:this._utility.getStatus(formattedFromDate||'')
         }
-        const data=this._utility.updateItem(Number(this.params_data?.id),item);
+        this._utility.updateItem(Number(this.params_data?.id),item);
         this.snackBar.open('Employee data has been successfully updated', 'Close', {
           duration: 2000,
         });
@@ -125,10 +144,7 @@ export class EmpAddComponent {
           duration: 2000,
         });
         this.router.navigate([''])
-
       }
-
-
     }
   }
 }
