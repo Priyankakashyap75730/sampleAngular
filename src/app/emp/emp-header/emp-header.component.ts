@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'emp-header',
@@ -8,4 +8,10 @@ import { Component, Input } from '@angular/core';
 export class EmpHeaderComponent {
   @Input() heading:any;
   @Input() Add:boolean=false;
+  @Input() Edit:boolean=false;
+  @Output() del_emit=new EventEmitter();
+
+  confirm(){
+    this.del_emit.emit(true);
+  }
 }

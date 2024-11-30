@@ -147,4 +147,14 @@ export class EmpAddComponent {
       }
     }
   }
+
+  delete_emp(event:any){
+    if(event){
+      this._utility.deleteItem(this.params_data?.id);
+      this.snackBar.open('Employee data has been deleted', 'Close', {
+    duration: 2000,
+  });
+  this.router.navigate([''])
+    }
+  }
 }

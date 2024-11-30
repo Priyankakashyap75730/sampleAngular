@@ -1,5 +1,5 @@
 <div class="container">
-  <emp-header [heading]="heading" [Add]="true"></emp-header>
+  <emp-header [heading]="heading" [Add]="true" [Edit]="params_data?.id ? true:false" (del_emit)="delete_emp($event)"></emp-header>
   <div class="employee-details-container">
     <form [formGroup]="employeeForm" class="form-container">
      <mat-form-field appearance="outline" class="form-field">
