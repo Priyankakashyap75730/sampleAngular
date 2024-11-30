@@ -53,8 +53,6 @@ delete(emp:any){
 convertdate(date:any){
   const myDate: Date = new Date(date);
   const formattedDate = this.datePipe.transform(myDate, 'd MMM yyyy');
-  console.log(formattedDate);
-
   return formattedDate;
 }
 }
