@@ -66,7 +66,7 @@ export class EmpAddComponent {
     });
     if (this.params_data?.id) {
       this.heading = 'Edit Employee Details';
-      this.loadData(this.params_data?.id);
+      this.loadData(Number(this.params_data?.id));
     } else {
       this.heading = 'Add Employee Details';
     }
@@ -150,11 +150,11 @@ export class EmpAddComponent {
 
   delete_emp(event:any){
     if(event){
-      this._utility.deleteItem(this.params_data?.id);
+      this._utility.deleteItem(Number(this.params_data?.id));
       this.snackBar.open('Employee data has been deleted', 'Close', {
     duration: 2000,
   });
-  this.router.navigate([''])
+    this.router.navigate([''])
     }
   }
 }
