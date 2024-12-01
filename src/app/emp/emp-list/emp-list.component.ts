@@ -45,10 +45,13 @@ export class EmpListComponent {
     this.employees['previous']=pre;
 }
 delete(emp:any){
+  const confirmation = window.confirm('Are you sure you want to delete this Employee?');
+  if(confirmation){
   this._utilityservice.deleteItem(emp?.id);
   this.snackBar.open('Employee data has been deleted', 'Close', {
     duration: 2000,
   });
+}
 }
 convertdate(date:any){
   const myDate = date ? new Date(date):null;

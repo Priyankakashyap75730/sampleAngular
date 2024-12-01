@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { openDB, IDBPDatabase } from 'idb';
 import * as moment from 'moment-timezone';
@@ -17,7 +18,7 @@ export interface Item {
 export class UtilityService {
   private dbPromise: Promise<IDBPDatabase>;
   private itemsSubject: BehaviorSubject<Item[]> = new BehaviorSubject<Item[]>([]);
-  constructor() {
+  constructor(private datePipe: DatePipe) {
     this.dbPromise = openDB('MyDatabase', 1, {
       upgrade(db) {
          if (!db.objectStoreNames.contains('items')) {
@@ -60,8 +61,14 @@ export class UtilityService {
     this.refreshItems();
   }
   formatedate(date:any){
-    const formatedDate=moment(new Date(date)).utc();
-    return formatedDate.format();
+    const fromDate = new Date(date);
+    const normalizedUTCDate = new Date(Date.UTC(
+      fromDate.getFullYear(),
+      fromDate.getMonth(),
+      fromDate.getDate()
+    ));
+    const formattedDate = this.datePipe.transform(normalizedUTCDate, 'MM/dd/yyyy', 'UTC');
+    return formattedDate;
   }
   getStatus(fromDate: string): string {
     const timezone = 'UTC';

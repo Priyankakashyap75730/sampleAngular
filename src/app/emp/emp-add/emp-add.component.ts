@@ -113,8 +113,8 @@ export class EmpAddComponent {
   }
   saveEmp(event: any) {
     if (event.confirm) {
-      const formattedFromDate = this.datePipe.transform(this.employeeForm.value.fromDate, 'MM/dd/yyyy', 'UTC');
-      const formattedToDate = this.datePipe.transform(this.employeeForm.value.toDate, 'MM/dd/yyyy', 'UTC');
+      const formattedFromDate =this.employeeForm.value.fromDate ?this._utility.formatedate(new Date(this.employeeForm.value.fromDate)):'';
+      const formattedToDate =this.employeeForm.value.toDate ? this._utility.formatedate(new Date(this.employeeForm.value.toDate)):'';
       if(this.params_data?.id){
        let item={
           id:Number(this.params_data?.id),
@@ -150,11 +150,14 @@ export class EmpAddComponent {
 
   delete_emp(event:any){
     if(event){
+      const confirmation = window.confirm('Are you sure you want to delete this Employee?');
+      if(confirmation){
       this._utility.deleteItem(Number(this.params_data?.id));
       this.snackBar.open('Employee data has been deleted', 'Close', {
-    duration: 2000,
-  });
+      duration: 2000,
+    });
     this.router.navigate([''])
     }
+  }
   }
 }
